@@ -4,5 +4,4 @@ using UnityEngine;
 
 public interface IBlockView
 {
-    public void GetCubeCount();
 }

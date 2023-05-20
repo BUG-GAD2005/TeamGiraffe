@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BlockView : MonoBehaviour, IBlockView
 {
-
     // Start is called before the first frame update
     void Start()
     {
