@@ -25,8 +25,6 @@ public class BlockView : MonoBehaviour
 
     void Update()
     {
-        if (blockController == null)
-            Debug.Log("null");
         if(blockModel.isSelected)
         {
             transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
