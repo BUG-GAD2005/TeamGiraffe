@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12729394, g: 0.1341429, b: 0.121147014, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -283,6 +283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockPrefabs:
   - {fileID: 431820084699062488, guid: 56eeb3f56da5f48e1bf168b904fc66df, type: 3}
+<<<<<<< Updated upstream
 --- !u!1 &1082807009
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,6 +315,11 @@ Transform:
   m_Father: {fileID: 384143694}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+  - {fileID: 6978915153906295427, guid: ba06be80b74fb9845a4e588d5f168319, type: 3}
+  - {fileID: 2662604571670827826, guid: 65fed4775d3044b4a97718404f79a3e7, type: 3}
+  - {fileID: 7403428544114042053, guid: cbd668d866ff6334dabcff6a0eee45f0, type: 3}
+>>>>>>> Stashed changes
 --- !u!1 &1102319238
 GameObject:
   m_ObjectHideFlags: 0
