@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class HandAreaView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public HandAreaModel handAreaModel;
+    private HandAreaController handAreaController;
+
+    private void Awake()
+    {
+        handAreaController = new HandAreaController();
+    }
+
+    private void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        //GameObject blockPrefab = handAreaModel.blockFactory.GetRandomBlockPrefab();
+        //blockPrefab.transform.parent = handAreaModel.spawnPoints[0];
     }
 }

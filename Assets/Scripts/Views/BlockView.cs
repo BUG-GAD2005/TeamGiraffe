@@ -33,6 +33,7 @@ public class BlockView : MonoBehaviour
                 Vector3Int roundPos = Vector3Int.RoundToInt(transform.position);
                 transform.position = roundPos;
                 transform.position += Vector3.up * 0.01f;
+
                 blockController.TryGridPlacement(roundPos, blockModel);
             }
         }
