@@ -47,6 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29166c744b1f4af191998e408698e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockModel:
+    tiles: []
+    isSelected: 0
 --- !u!1 &6418730314298749061
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +112,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 964cf1a49e6fa4c37b589152e6864b3c, type: 2}
+  - {fileID: 2100000, guid: fb5461fadf8cb41bda60129d4fa41ad9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -206,7 +209,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 964cf1a49e6fa4c37b589152e6864b3c, type: 2}
+  - {fileID: 2100000, guid: fb5461fadf8cb41bda60129d4fa41ad9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -303,7 +306,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 964cf1a49e6fa4c37b589152e6864b3c, type: 2}
+  - {fileID: 2100000, guid: fb5461fadf8cb41bda60129d4fa41ad9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

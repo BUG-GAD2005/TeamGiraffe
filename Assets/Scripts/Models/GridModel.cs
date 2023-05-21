@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public class GridModel
 {
-    [SerializeField] private int rowCount;
-    [SerializeField] private int columnCount;
+    [SerializeField] public int rowCount;
+    [SerializeField] public int columnCount;
+    [SerializeField] public GameObject tilePrefab;
 }
