@@ -32,25 +32,17 @@ public class HandAreaView : MonoBehaviour
             blockPrefab.transform.position = handAreaModel.spawnPoints[i].position;
             handAreaModel.blocksList[i] = blockPrefab.blockModel;
         }
+
+        if(!CanPlaceAllBlocks())
+        {
+            Debug.Log("Gamo Over");
+        }
     }
 
     private void CheckHandAreaBlocks(Transform block)
     {
-        bool canPlaceAll = true;
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if (handAreaModel.spawnPoints[i].childCount == 0)
-                continue;
-
-            bool? placeResult = EventController.Instance.ValidateAllPlacements(handAreaModel.blocksList[i]);
-            if(placeResult == false)
-            {
-                canPlaceAll = false;
-                break;
-            }
-        }
-
-        if(!canPlaceAll)
+       
+        if(!CanPlaceAllBlocks())
         {
             // Game OVer Screen
             Debug.Log("Game Over");
@@ -59,5 +51,24 @@ public class HandAreaView : MonoBehaviour
         {
             SpawnBlockPrefab();
         }
+    }
+
+    private bool CanPlaceAllBlocks()
+    {
+        bool canPlaceAll = true;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (handAreaModel.spawnPoints[i].childCount == 0)
+                continue;
+
+            bool? placeResult = EventController.Instance.ValidateAllPlacements(handAreaModel.blocksList[i]);
+            if (placeResult == false)
+            {
+                canPlaceAll = false;
+                break;
+            }
+        }
+
+        return canPlaceAll;
     }
 }
