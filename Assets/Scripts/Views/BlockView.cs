@@ -34,7 +34,7 @@ public class BlockView : MonoBehaviour
                 transform.position = roundPos;
                 transform.position += Vector3.up * 0.01f;
 
-                blockController.TryGridPlacement(roundPos, blockModel);
+                blockController.TryGridPlacement(transform, blockModel);
             }
         }
     }

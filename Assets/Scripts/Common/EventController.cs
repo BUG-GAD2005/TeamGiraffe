@@ -5,11 +5,17 @@ using UnityEngine;
 
 public class EventController : MonoBehaviour
 {
-    public event Func<Vector3Int, IBlockModel, bool> OnBlockPlacementGrid;
+    public event Func<Vector3Int, IBlockModel, bool> OnValidateBlockPlacement;
+    public event Action<Transform> OnBlockPlacement;
 
     public bool? TryPlacementOnGrid(Vector3Int position, IBlockModel blockData)
     {
-        return OnBlockPlacementGrid?.Invoke(position, blockData);
+        return OnValidateBlockPlacement?.Invoke(position, blockData);
+    }
+
+    public void PlaceBlock(Transform block)
+    {
+        OnBlockPlacement?.Invoke(block);
     }
 
     public static EventController Instance;

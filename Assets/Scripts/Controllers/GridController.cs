@@ -1,14 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GridController
 {
+    GridView view;
     Dictionary<Vector3Int, GameObject> gridPlacement = new Dictionary<Vector3Int, GameObject>();
+
+    public GridController(GridView view)
+    {
+        this.view = view;
+    }
 
     public void SubscribeEvents()
     {
-        EventController.Instance.OnBlockPlacementGrid += ValidateBlockPlacement;
+        EventController.Instance.OnValidateBlockPlacement += ValidateBlockPlacement;
+        EventController.Instance.OnBlockPlacement += PlaceBlockOnGrid;
     }
 
     private bool ValidateBlockPlacement(Vector3Int position, IBlockModel blockData)
@@ -23,13 +31,27 @@ public class GridController
                 return false;
         }
 
-        foreach (var blockTile in blockData.GetTiles())
+        return true;
+    }
+
+    public void PlaceBlockOnGrid(Transform block)
+    {
+        Vector3Int position = Vector3Int.RoundToInt(block.position);
+
+        for (int i = 0; i < block.childCount; i++)
         {
-            Vector3Int finalPosition = position + blockTile.Key;
-            gridPlacement[finalPosition] = blockTile.Value;
+            Transform tile = block.GetChild(i);
+
+            Vector3Int tilePosition = Vector3Int.RoundToInt(tile.position);
+            gridPlacement[tilePosition] = tile.gameObject;
         }
 
-        return true;
+        view.HandleBlockPlacementView(block);
+        CheckCompletedLines();
+    }
+
+    private void CheckCompletedLines()
+    {
     }
 
     public void InitializeGridCell(Vector3Int cell)

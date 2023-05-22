@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BlockController
 {
-    public void TryGridPlacement(Vector3Int position, BlockModel model)
+    public void TryGridPlacement(Transform block, BlockModel model)
     {
-        bool? placementResult = EventController.Instance.TryPlacementOnGrid(position, model);
+        bool? placementResult = EventController.Instance.TryPlacementOnGrid(Vector3Int.RoundToInt(block.position), model);
         if (placementResult == true)
         {
             model.isSelected = false;
-            Debug.Log("Placed");
+            EventController.Instance.PlaceBlock(block);
         }
         else
             Debug.LogError("Not placed");

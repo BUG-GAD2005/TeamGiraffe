@@ -9,7 +9,7 @@ public class GridView : MonoBehaviour
 
     private void Awake()
     {
-        gridController = new GridController();
+        gridController = new GridController(this);
     }
 
     private void Start()
@@ -31,6 +31,17 @@ public class GridView : MonoBehaviour
                 gridController.InitializeGridCell(pos);
             }
         }
+    }
+
+    public void HandleBlockPlacementView(Transform block)
+    {
+        int childC = block.childCount;
+        for (int i = 0; i < childC; i++)
+        {
+            block.GetChild(0).parent = transform;
+        }
+
+        Destroy(block.gameObject);
     }
 
     private void Update()
