@@ -10,32 +10,52 @@ public class HandAreaView : MonoBehaviour
     private void Awake()
     {
         handAreaController = new HandAreaController();
+        handAreaModel.blocksList = new IBlockModel[transform.childCount];
     }
 
     private void Start()
     {
+        EventController.Instance.OnBlockPlaced += CheckHandAreaBlocks;
         SpawnBlockPrefab();
     }
 
     private void Update()
     {
-        CheckHandAreaBlocks();
     }
 
     private void SpawnBlockPrefab()
     {
-        GameObject blockPrefab = handAreaModel.blockFactory.GetRandomBlockPrefab();
-        GameObject blockPrefab2 = handAreaModel.blockFactory.GetRandomBlockPrefab();
-        GameObject blockPrefab3 = handAreaModel.blockFactory.GetRandomBlockPrefab();
-
-        blockPrefab.transform.parent = handAreaModel.spawnPoints[0];
-        blockPrefab2.transform.parent = handAreaModel.spawnPoints[1];
-        blockPrefab3.transform.parent = handAreaModel.spawnPoints[2];
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            BlockView blockPrefab = handAreaModel.blockFactory.GetRandomBlockPrefab();
+            blockPrefab.transform.parent = handAreaModel.spawnPoints[i];
+            blockPrefab.transform.position = handAreaModel.spawnPoints[i].position;
+            handAreaModel.blocksList[i] = blockPrefab.blockModel;
+        }
     }
 
-    private void CheckHandAreaBlocks()
+    private void CheckHandAreaBlocks(Transform block)
     {
-        if(handAreaModel.spawnPoints[0].childCount == 0 && handAreaModel.spawnPoints[1].childCount == 0 && handAreaModel.spawnPoints[2].childCount == 0)
+        bool canPlaceAll = true;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (handAreaModel.spawnPoints[i].childCount == 0)
+                continue;
+
+            bool? placeResult = EventController.Instance.ValidateAllPlacements(handAreaModel.blocksList[i]);
+            if(placeResult == false)
+            {
+                canPlaceAll = false;
+                break;
+            }
+        }
+
+        if(!canPlaceAll)
+        {
+            // Game OVer Screen
+            Debug.Log("Game Over");
+        }
+        else if(handAreaModel.spawnPoints[0].childCount == 0 && handAreaModel.spawnPoints[1].childCount == 0 && handAreaModel.spawnPoints[2].childCount == 0)
         {
             SpawnBlockPrefab();
         }

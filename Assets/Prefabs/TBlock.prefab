@@ -204,6 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3438650857598364292}
   - component: {fileID: 6569615741427505756}
+  - component: {fileID: 418595595624357624}
   m_Layer: 0
   m_Name: TBlock
   m_TagString: Untagged
@@ -244,6 +245,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockModel:
     isSelected: 0
+--- !u!65 &418595595624357624
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7403428544114042053}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 1, z: 2}
+  m_Center: {x: 1, y: 0, z: 0.5}
 --- !u!1 &7599454160765357556
 GameObject:
   m_ObjectHideFlags: 0

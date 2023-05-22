@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 435882188557605219}
   - component: {fileID: 8106238988744409246}
+  - component: {fileID: 7028375074740986057}
   m_Layer: 0
   m_Name: LBlock
   m_TagString: Untagged
@@ -48,8 +49,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockModel:
-    tiles: []
     isSelected: 0
+--- !u!65 &7028375074740986057
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431820084699062488}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.064411, y: 1, z: 2.00105}
+  m_Center: {x: 0.5322057, y: 0, z: 0.5005252}
 --- !u!1 &6418730314298749061
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +156,7 @@ BoxCollider:
   m_GameObject: {fileID: 6418730314298749061}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -240,7 +253,7 @@ BoxCollider:
   m_GameObject: {fileID: 6418730315066457130}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -337,7 +350,7 @@ BoxCollider:
   m_GameObject: {fileID: 6418730315677404572}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

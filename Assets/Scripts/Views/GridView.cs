@@ -41,7 +41,7 @@ public class GridView : MonoBehaviour
             block.GetChild(0).parent = transform;
         }
 
-        Destroy(block.gameObject);
+        DestroyImmediate(block.gameObject);
     }
 
     public void ClearTiles(Dictionary<Vector3Int,GameObject> tiles)

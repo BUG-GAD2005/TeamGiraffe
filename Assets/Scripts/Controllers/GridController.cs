@@ -19,6 +19,7 @@ public class GridController
     {
         EventController.Instance.OnValidateBlockPlacement += ValidateBlockPlacement;
         EventController.Instance.OnBlockPlacement += PlaceBlockOnGrid;
+        EventController.Instance.OnValidateAllPlacements += ValidateAllPlacements;
     }
 
     private bool ValidateBlockPlacement(Vector3Int position, IBlockModel blockData)
@@ -26,14 +27,37 @@ public class GridController
         foreach (var blockTile in blockData.GetTiles())
         {
             Vector3Int finalPosition = position + blockTile.Key;
-            if (!gridPlacement.TryGetValue(finalPosition, out GameObject existing))
-                return false;
-
-            if (existing != null)
+            if (!gridPlacement.TryGetValue(finalPosition, out GameObject existing) || existing != null)
                 return false;
         }
 
         return true;
+    }
+
+    private bool ValidateAllPlacements(IBlockModel blockData)
+    {
+        bool result = false;
+        foreach (var cellPos in gridPlacement)
+        {
+            bool canPlace = true;
+            foreach (var blockTile in blockData.GetTiles())
+            {
+                Vector3Int finalPosition = cellPos.Key + blockTile.Key;
+                if (!gridPlacement.TryGetValue(finalPosition, out GameObject existing) || existing != null)
+                {
+                    canPlace = false;
+                    break;
+                }
+            }
+
+            if (canPlace)
+            {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
     }
 
     public void PlaceBlockOnGrid(Transform block)
@@ -51,6 +75,7 @@ public class GridController
 
         view.HandleBlockPlacementView(block);
         CheckCompletedLines(tilePoses);
+        EventController.Instance.PlacedBlock(block);
     }
 
     private void CheckCompletedLines(List<Vector3Int> newTilePoses)

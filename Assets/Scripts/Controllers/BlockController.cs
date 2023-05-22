@@ -13,6 +13,9 @@ public class BlockController
             EventController.Instance.PlaceBlock(block);
         }
         else
-            Debug.LogError("Not placed");
+        {
+            model.isSelected = false;
+            block.transform.localPosition = Vector3.zero;
+        }
     }
 }

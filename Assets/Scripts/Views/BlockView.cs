@@ -31,11 +31,25 @@ public class BlockView : MonoBehaviour
             if(Input.GetMouseButtonDown(0))
             {
                 Vector3Int roundPos = Vector3Int.RoundToInt(transform.position);
+                roundPos.y = 0;
                 transform.position = roundPos;
                 transform.position += Vector3.up * 0.01f;
 
                 blockController.TryGridPlacement(transform, blockModel);
             }
         }
+    }
+
+    private void OnMouseDown()
+    {
+        if (!blockModel.isSelected)
+        {
+            Invoke(nameof(SetSelected), 0.1f);
+        }
+    }
+
+    private void SetSelected()
+    {
+        blockModel.isSelected = true;
     }
 }
