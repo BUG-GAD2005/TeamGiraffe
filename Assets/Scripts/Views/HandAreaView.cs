@@ -14,12 +14,30 @@ public class HandAreaView : MonoBehaviour
 
     private void Start()
     {
-        
+        SpawnBlockPrefab();
     }
 
     private void Update()
     {
-        //GameObject blockPrefab = handAreaModel.blockFactory.GetRandomBlockPrefab();
-        //blockPrefab.transform.parent = handAreaModel.spawnPoints[0];
+        CheckHandAreaBlocks();
+    }
+
+    private void SpawnBlockPrefab()
+    {
+        GameObject blockPrefab = handAreaModel.blockFactory.GetRandomBlockPrefab();
+        GameObject blockPrefab2 = handAreaModel.blockFactory.GetRandomBlockPrefab();
+        GameObject blockPrefab3 = handAreaModel.blockFactory.GetRandomBlockPrefab();
+
+        blockPrefab.transform.parent = handAreaModel.spawnPoints[0];
+        blockPrefab2.transform.parent = handAreaModel.spawnPoints[1];
+        blockPrefab3.transform.parent = handAreaModel.spawnPoints[2];
+    }
+
+    private void CheckHandAreaBlocks()
+    {
+        if(handAreaModel.spawnPoints[0].childCount == 0 && handAreaModel.spawnPoints[1].childCount == 0 && handAreaModel.spawnPoints[2].childCount == 0)
+        {
+            SpawnBlockPrefab();
+        }
     }
 }
