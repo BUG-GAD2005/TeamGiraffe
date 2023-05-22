@@ -9,7 +9,7 @@ public class GridView : MonoBehaviour
 
     private void Awake()
     {
-        gridController = new GridController(this);
+        gridController = new GridController(this, gridModel);
     }
 
     private void Start()
@@ -42,6 +42,14 @@ public class GridView : MonoBehaviour
         }
 
         Destroy(block.gameObject);
+    }
+
+    public void ClearTiles(Dictionary<Vector3Int,GameObject> tiles)
+    {
+        foreach (var tileObj in tiles.Values)
+        {
+            Destroy(tileObj);
+        }
     }
 
     private void Update()
