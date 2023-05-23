@@ -15,7 +15,7 @@ public class BlockController
         else
         {
             model.isSelected = false;
-            block.transform.localPosition = Vector3.zero;
+            EventController.Instance.FailedBlockPlacement(model);
         }
     }
 }

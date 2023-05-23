@@ -9,7 +9,7 @@ public class EventController : MonoBehaviour
     public event Func<IBlockModel, bool> OnValidateAllPlacements;
     public event Action<Transform> OnBlockPlacement;
     public event Action<Transform> OnBlockPlaced;
-    
+    public event Action<IBlockModel> OnBlockPlacementFailed;
 
     public bool? TryPlacementOnGrid(Vector3Int position, IBlockModel blockData)
     {
@@ -21,7 +21,6 @@ public class EventController : MonoBehaviour
         return OnValidateAllPlacements?.Invoke(blockModel);
     }
 
-
     public void PlaceBlock(Transform block)
     {
         OnBlockPlacement?.Invoke(block);
@@ -32,6 +31,10 @@ public class EventController : MonoBehaviour
         OnBlockPlaced?.Invoke(block);
     }
 
+    public void FailedBlockPlacement(IBlockModel blockModel)
+    {
+        OnBlockPlacementFailed?.Invoke(blockModel);
+    }
 
     public static EventController Instance;
     private void Awake()

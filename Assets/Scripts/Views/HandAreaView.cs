@@ -1,74 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
 
 public class HandAreaView : MonoBehaviour
 {
-    public HandAreaModel handAreaModel;
-    private HandAreaController handAreaController;
+    public HandAreaModel model;
+    private HandAreaController controller;
 
     private void Awake()
     {
-        handAreaController = new HandAreaController();
-        handAreaModel.blocksList = new IBlockModel[transform.childCount];
+        model.blocksList = new IBlockModel[model.spawnPoints.Length];
+        model.spawnOffsets = new Vector3[model.spawnPoints.Length];
+
+        controller = new HandAreaController(this, model);
     }
 
     private void Start()
     {
-        EventController.Instance.OnBlockPlaced += CheckHandAreaBlocks;
+        controller.SubscribeEvents();
+
+        EventController.Instance.OnBlockPlacementFailed += PositionBlockToSpawn;
         SpawnBlockPrefab();
     }
 
-    private void Update()
+    public void SpawnBlockPrefab()
     {
-    }
-
-    private void SpawnBlockPrefab()
-    {
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < model.blocksList.Length; i++)
         {
-            BlockView blockPrefab = handAreaModel.blockFactory.GetRandomBlockPrefab();
-            blockPrefab.transform.parent = handAreaModel.spawnPoints[i];
-            blockPrefab.transform.position = handAreaModel.spawnPoints[i].position;
-            handAreaModel.blocksList[i] = blockPrefab.blockModel;
+            BlockView blockPrefab = model.blockFactory.GetRandomBlockPrefab();
+            float maxZ = blockPrefab.blockModel.GetTiles().Keys.OrderByDescending(b => b.z).First().z;
+            if (maxZ >= 3)
+                model.spawnOffsets[i] = new Vector3(0, 0, -(maxZ - 1f));
+            else
+                model.spawnOffsets[i] = Vector3.zero;
+
+            blockPrefab.transform.parent = model.spawnPoints[i];
+            blockPrefab.transform.localPosition = model.spawnOffsets[i];
+            model.blocksList[i] = blockPrefab.blockModel;
+
         }
 
-        if(!CanPlaceAllBlocks())
+        if(!controller.CanPlaceAnyBlock())
         {
             Debug.Log("Gamo Over");
         }
     }
 
-    private void CheckHandAreaBlocks(Transform block)
+    private void PositionBlockToSpawn(IBlockModel blockModel)
     {
-       
-        if(!CanPlaceAllBlocks())
-        {
-            // Game OVer Screen
-            Debug.Log("Game Over");
-        }
-        else if(handAreaModel.spawnPoints[0].childCount == 0 && handAreaModel.spawnPoints[1].childCount == 0 && handAreaModel.spawnPoints[2].childCount == 0)
-        {
-            SpawnBlockPrefab();
-        }
-    }
+        int blockIndex = Array.IndexOf(model.blocksList, blockModel);
+        Vector3 spawnOffset = model.spawnOffsets[blockIndex];
+        Transform spawnPoint = model.spawnPoints[blockIndex];
 
-    private bool CanPlaceAllBlocks()
-    {
-        bool canPlaceAll = true;
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if (handAreaModel.spawnPoints[i].childCount == 0)
-                continue;
-
-            bool? placeResult = EventController.Instance.ValidateAllPlacements(handAreaModel.blocksList[i]);
-            if (placeResult == false)
-            {
-                canPlaceAll = false;
-                break;
-            }
-        }
-
-        return canPlaceAll;
+        spawnPoint.GetChild(0).transform.localPosition = spawnOffset;
     }
 }
