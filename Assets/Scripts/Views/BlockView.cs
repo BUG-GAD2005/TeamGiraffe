@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BlockView : MonoBehaviour
 {
-    public BlockModel blockModel;
-    private BlockController blockController;
+    public BlockModel model;
+    private BlockController controller;
 
     private void Awake()
     {
-        blockController = new BlockController();
+        controller = new BlockController();
         SetupBlocks();
     }
 
@@ -19,13 +19,13 @@ public class BlockView : MonoBehaviour
         {
             Transform childTile = transform.GetChild(i);
             Vector3Int tilePos = Vector3Int.RoundToInt(childTile.position);
-            blockModel.AddTile(tilePos, childTile.gameObject);
+            model.AddTile(tilePos, childTile.gameObject);
         }
     }
 
     void Update()
     {
-        if(blockModel.isSelected)
+        if(model.isSelected)
         {
             transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
             if(Input.GetMouseButtonDown(0))
@@ -35,14 +35,14 @@ public class BlockView : MonoBehaviour
                 transform.position = roundPos;
                 transform.position += Vector3.up * 0.01f;
 
-                blockController.TryGridPlacement(transform, blockModel);
+                controller.TryGridPlacement(transform, model);
             }
         }
     }
 
     private void OnMouseDown()
     {
-        if (!blockModel.isSelected)
+        if (!model.isSelected)
         {
             Invoke(nameof(SetSelected), 0.1f);
         }
@@ -50,6 +50,6 @@ public class BlockView : MonoBehaviour
 
     private void SetSelected()
     {
-        blockModel.isSelected = true;
+        model.isSelected = true;
     }
 }

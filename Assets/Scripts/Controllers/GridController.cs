@@ -63,7 +63,6 @@ public class GridController
     public void PlaceBlockOnGrid(Transform block)
     {
         List<Vector3Int> tilePoses = new List<Vector3Int>();
-        Vector3Int position = Vector3Int.RoundToInt(block.position);
         for (int i = 0; i < block.childCount; i++)
         {
             Transform tile = block.GetChild(i);
@@ -73,12 +72,14 @@ public class GridController
             gridPlacement[tilePosition] = tile.gameObject;
         }
 
+        EventController.Instance.EarnScore(block.childCount * 10);
         view.HandleBlockPlacementView(block);
-        CheckCompletedLines(tilePoses);
+        int clearCount = CheckCompletedLines(tilePoses);
+        EventController.Instance.EarnScore(clearCount * 10);
         EventController.Instance.PlacedBlock(block);
     }
 
-    private void CheckCompletedLines(List<Vector3Int> newTilePoses)
+    private int CheckCompletedLines(List<Vector3Int> newTilePoses)
     {
         Dictionary<Vector3Int, GameObject> toDestroy = new Dictionary<Vector3Int, GameObject>();
         for (int i = 0; i < newTilePoses.Count; i++)
@@ -106,7 +107,10 @@ public class GridController
                 foreach (var item in tileList)
                 {
                     if (!toDestroy.ContainsKey(item))
+                    {
                         toDestroy.Add(item, gridPlacement[item]);
+                        gridPlacement[item] = null;
+                    }
                 }
                 lineDone = true;
             }
@@ -132,18 +136,26 @@ public class GridController
                 foreach (var item in tileList)
                 {
                     if (!toDestroy.ContainsKey(item))
+                    {
                         toDestroy.Add(item, gridPlacement[item]);
+                        gridPlacement[item] = null;
+                    }
                 }
                 lineDone = true;
             }
 
             if (lineDone && !toDestroy.ContainsKey(tilePos))
+            {
                 toDestroy.Add(tilePos, gridPlacement[tilePos]);
-
+                gridPlacement[tilePos] = null;
+            }
         }
 
-        if (toDestroy.Count > 0)
+        int destroyCount = toDestroy.Count;
+        if (destroyCount > 0)
             view.ClearTiles(toDestroy);
+
+        return destroyCount;
     }
 
     public void InitializeGridCell(Vector3Int cell)

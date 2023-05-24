@@ -5,11 +5,19 @@ using UnityEngine;
 
 public class EventController : MonoBehaviour
 {
+    // Grid validation
     public event Func<Vector3Int, IBlockModel, bool> OnValidateBlockPlacement;
     public event Func<IBlockModel, bool> OnValidateAllPlacements;
+
+    // Block placement
     public event Action<Transform> OnBlockPlacement;
     public event Action<Transform> OnBlockPlaced;
     public event Action<IBlockModel> OnBlockPlacementFailed;
+
+    // Game/UI state
+    public event Action<int> OnScoreEarned;
+    public event Action OnGameOver;
+
 
     public bool? TryPlacementOnGrid(Vector3Int position, IBlockModel blockData)
     {
@@ -34,6 +42,16 @@ public class EventController : MonoBehaviour
     public void FailedBlockPlacement(IBlockModel blockModel)
     {
         OnBlockPlacementFailed?.Invoke(blockModel);
+    }
+
+    public void EarnScore(int score)
+    {
+        OnScoreEarned?.Invoke(score);
+    }
+
+    public void LoseGame()
+    {
+        OnGameOver?.Invoke();
     }
 
     public static EventController Instance;

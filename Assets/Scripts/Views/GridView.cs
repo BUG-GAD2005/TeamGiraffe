@@ -4,31 +4,31 @@ using UnityEngine;
 
 public class GridView : MonoBehaviour
 {
-    public GridModel gridModel;
-    private GridController gridController;
+    public GridModel model;
+    private GridController controller;
 
     private void Awake()
     {
-        gridController = new GridController(this, gridModel);
+        controller = new GridController(this, model);
     }
 
     private void Start()
     {
         CreateGridView();
-        gridController.SubscribeEvents();
+        controller.SubscribeEvents();
     }
 
     void CreateGridView()
     {
-        for (int i = 0; i < gridModel.rowCount; i++)
+        for (int i = 0; i < model.rowCount; i++)
         {
-            for (int j = 0; j < gridModel.columnCount; j++)
+            for (int j = 0; j < model.columnCount; j++)
             {
                 Vector3Int pos = new Vector3Int(j, 0, i);
-                GameObject cellObj = Instantiate(gridModel.tilePrefab, transform);
+                GameObject cellObj = Instantiate(model.tilePrefab, transform);
                 cellObj.name = pos.z + "_" + pos.x;
                 cellObj.transform.localPosition = pos;
-                gridController.InitializeGridCell(pos);
+                controller.InitializeGridCell(pos);
             }
         }
     }
@@ -48,7 +48,7 @@ public class GridView : MonoBehaviour
     {
         foreach (var tileObj in tiles.Values)
         {
-            Destroy(tileObj);
+            DestroyImmediate(tileObj);
         }
     }
 

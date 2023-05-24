@@ -43,8 +43,7 @@ public class HandAreaController
     {
         if (!CanPlaceAnyBlock())
         {
-            // Game OVer Screen
-            Debug.Log("Game Over");
+            EventController.Instance.LoseGame();
         }
         else if (model.spawnPoints[0].childCount == 0 && model.spawnPoints[1].childCount == 0 && model.spawnPoints[2].childCount == 0)
         {

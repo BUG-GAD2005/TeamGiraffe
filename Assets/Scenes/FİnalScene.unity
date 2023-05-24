@@ -941,7 +941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db43851f846243faa70a83ef054ec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridModel:
+  model:
     rowCount: 10
     columnCount: 10
     tilePrefab: {fileID: 96919613121184571, guid: 87f8a4c4d99894a0dbd175eb17f4cbcc, type: 3}
@@ -1087,6 +1087,7 @@ GameObject:
   - component: {fileID: 2042626880}
   - component: {fileID: 2042626879}
   - component: {fileID: 2042626878}
+  - component: {fileID: 2042626882}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1177,6 +1178,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2042626882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042626877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0de581070f94c169f707b7328a996e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model:
+    currentScore: 0
+    scoreLabel: {fileID: 43396802}
+    gameOverPanel: {fileID: 2064064400}
 --- !u!1 &2064064400
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,7 +1247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.64705884}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1272,13 +1289,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
+        - m_Target: {fileID: 2042626882}
+          m_TargetAssemblyTypeName: UIView, Assembly-CSharp
+          m_MethodName: RequestedSceneRestart
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 

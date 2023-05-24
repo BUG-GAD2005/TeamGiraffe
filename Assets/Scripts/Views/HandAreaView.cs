@@ -30,7 +30,7 @@ public class HandAreaView : MonoBehaviour
         for (int i = 0; i < model.blocksList.Length; i++)
         {
             BlockView blockPrefab = model.blockFactory.GetRandomBlockPrefab();
-            float maxZ = blockPrefab.blockModel.GetTiles().Keys.OrderByDescending(b => b.z).First().z;
+            float maxZ = blockPrefab.model.GetTiles().Keys.OrderByDescending(b => b.z).First().z;
             if (maxZ >= 3)
                 model.spawnOffsets[i] = new Vector3(0, 0, -(maxZ - 1f));
             else
@@ -38,13 +38,13 @@ public class HandAreaView : MonoBehaviour
 
             blockPrefab.transform.parent = model.spawnPoints[i];
             blockPrefab.transform.localPosition = model.spawnOffsets[i];
-            model.blocksList[i] = blockPrefab.blockModel;
+            model.blocksList[i] = blockPrefab.model;
 
         }
 
         if(!controller.CanPlaceAnyBlock())
         {
-            Debug.Log("Gamo Over");
+            EventController.Instance.LoseGame();
         }
     }
 

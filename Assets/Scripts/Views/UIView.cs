@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class UIView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public UIModel model;
+    private UIController controller;
+
+    private void Awake()
     {
-        
+        controller = new UIController(this, model);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        controller.SubscribeEvents();
+    }
+
+    public void RequestedSceneRestart()
+    {
+        if (model.isRestartRequested)
+            return;
+
+        model.isRestartRequested = true;
+        controller.RestartScene();
     }
 }

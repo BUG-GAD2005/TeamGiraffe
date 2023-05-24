@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using System;
 
+[Serializable]
 public class UIModel
 {
+    public int currentScore;
     public TextMeshProUGUI scoreLabel;
     public GameObject gameOverPanel;
+    public bool isRestartRequested;
 }
